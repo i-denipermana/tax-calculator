@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f693cc61-f3de-4c81-b8e4-783cc88ee74a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/csv-plugin.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/app/tax/cli/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/app/tax/cli/AppTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JUnit3 Test Class" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Fd2Ci0mU0IYlLnOcASSAICzYxI" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit3&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3&quot;: &quot;junit.framework.TestCase&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="junit.framework.TestCase" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.app.tax.cli.utils" />
+      <recent name="org.example" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.com.app.tax.cli.App">
+    <configuration name="com.app.tax.cli.App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.app.tax.cli.App" />
+      <module name="tax-calculator" />
+      <option name="PROGRAM_PARAMETERS" value="GST 123 abcd.csv" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.app.tax.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in tax-calculator" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tax-calculator" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AppTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tax-calculator" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.app.tax.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.app.tax.cli" />
+      <option name="MAIN_CLASS_NAME" value="com.app.tax.cli.AppTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AppTest.testIfFileIsNotExistsShouldReturnFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tax-calculator" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.app.tax.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.app.tax.cli" />
+      <option name="MAIN_CLASS_NAME" value="com.app.tax.cli.AppTest" />
+      <option name="METHOD_NAME" value="testIfFileIsNotExistsShouldReturnFalse" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AppTest.testValidateArgumentsLengthShouldReturnTrueIfLengthIs3OrMore" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tax-calculator" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.app.tax.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.app.tax.cli" />
+      <option name="MAIN_CLASS_NAME" value="com.app.tax.cli.AppTest" />
+      <option name="METHOD_NAME" value="testValidateArgumentsLengthShouldReturnTrueIfLengthIs3OrMore" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.com.app.tax.cli.App" />
+      <item itemvalue="JUnit.All in tax-calculator" />
+      <item itemvalue="JUnit.AppTest" />
+      <item itemvalue="JUnit.AppTest.testIfFileIsNotExistsShouldReturnFalse" />
+      <item itemvalue="JUnit.AppTest.testValidateArgumentsLengthShouldReturnTrueIfLengthIs3OrMore" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.com.app.tax.cli.App" />
+        <item itemvalue="JUnit.All in tax-calculator" />
+        <item itemvalue="JUnit.AppTest" />
+        <item itemvalue="JUnit.AppTest.testIfFileIsNotExistsShouldReturnFalse" />
+        <item itemvalue="JUnit.AppTest.testValidateArgumentsLengthShouldReturnTrueIfLengthIs3OrMore" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f693cc61-f3de-4c81-b8e4-783cc88ee74a" name="Changes" comment="" />
+      <created>1664807516135</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1664807516135</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/app/tax/cli/services/TaxCalculatorService.java</url>
+          <line>21</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/tax_calculator$All_in_tax_calculator.ic" NAME="All in tax-calculator Coverage Results" MODIFIED="1664963072473" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/tax_calculator$AppTest.ic" NAME="AppTest Coverage Results" MODIFIED="1664962656408" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.app.tax.cli.*</FILTER>
+    </SUITE>
+  </component>
+</project>
