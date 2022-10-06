@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f693cc61-f3de-4c81-b8e4-783cc88ee74a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/app/tax/cli/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/app/tax/cli/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/app/tax/cli/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/app/tax/cli/config/AppConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/app/tax/cli/domain/entities/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/app/tax/cli/domain/entities/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/app/tax/cli/services/TaxCalculatorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/app/tax/cli/services/TaxCalculatorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/app/tax/cli/utils/FileHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/app/tax/cli/utils/FileHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/app/tax/cli/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/app/tax/cli/AppTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="f693cc61-f3de-4c81-b8e4-783cc88ee74a" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
