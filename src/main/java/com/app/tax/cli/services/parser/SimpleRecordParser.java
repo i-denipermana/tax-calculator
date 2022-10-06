@@ -7,7 +7,7 @@ public class SimpleRecordParser implements RecordParser {
 
     @Override
     public double getRecordTaxAmount(Transaction trx, int userId, TaxType taxType) {
-        if (trx.getTaxType() == taxType && trx.getCustomerId() == userId) {
+        if (isValid(trx, userId, taxType)) {
             return trx.getAmount() * 0.1;
         }
 
@@ -16,9 +16,13 @@ public class SimpleRecordParser implements RecordParser {
 
     @Override
     public double getAmount(Transaction trx, int userId, TaxType taxType) {
-        if (trx.getTaxType() == taxType && trx.getCustomerId() == userId) {
+        if (isValid(trx, userId, taxType)) {
             return trx.getAmount();
         }
         return 0;
+    }
+
+    private boolean isValid(Transaction trx, int userId, TaxType taxType) {
+        return trx.getTaxType() == taxType && trx.getCustomerId() == userId;
     }
 }
