@@ -2,45 +2,45 @@ package com.app.tax.cli.services;
 
 import com.app.tax.cli.domain.entities.Transaction;
 import com.app.tax.cli.domain.enums.TaxType;
+import com.app.tax.cli.services.parser.RecordParser;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
 
 public class TaxCalculatorService {
-    public TaxCalculatorService() {
+    private final RecordParser parser;
+
+    public TaxCalculatorService(RecordParser parser) {
+        this.parser = parser;
     }
 
-    public List<Transaction> readFromFile(TaxType taxType, String userId, String file) throws IOException {
+    public double getTotalAmount(TaxType taxType, int userId, String file) throws IOException {
         String line;
-        List<Transaction> transactions = new ArrayList<>();
+        double taxAmount = 0.0;
+        double transactionAmount = 0.0;
 
         FileReader fileReader = new FileReader(file);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
-        Pattern pattern = Pattern.compile("(?=.*"+ taxType +")(?=.*"+ userId +")");
         while ((line = bufferedReader.readLine()) != null) {
-            if(pattern.matcher(line).find()) {
-                Transaction trx = new Transaction();
-                String[] record = line.split(",");
-                trx.setAmount(Double.parseDouble(record[3].trim()));
-                trx.setCustomerId(Integer.parseInt(record[0].trim()));
-                trx.setTaxType(TaxType.valueOf(record[4].trim().toUpperCase()));
-                trx.setTimestamp(LocalDateTime.parse(record[2].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")));
-                transactions.add(trx);
-            }
+            Transaction trx = buildTransaction(line);
+            taxAmount += this.parser.getRecordTaxAmount(trx, userId, taxType);
+            transactionAmount += this.parser.getAmount(trx, userId, taxType);
         }
-        return transactions;
+        return transactionAmount + taxAmount;
     }
 
-    public double calculate(List<Transaction> transactions) {
-        return transactions.stream().mapToDouble(t -> t.getAmount() + (t.getAmount() * 10/100)).sum();
+    private Transaction buildTransaction(String line) {
+        Transaction transaction = new Transaction();
+        String[] record = line.split(",");
+        transaction.setAmount(Double.parseDouble(record[3].trim()));
+        transaction.setCustomerId(Integer.parseInt(record[0].trim()));
+        transaction.setTaxType(TaxType.valueOf(record[4].trim().toUpperCase()));
+        transaction.setTimestamp(LocalDateTime.parse(record[2].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")));
+        return transaction;
     }
 
 }

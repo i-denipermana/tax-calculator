@@ -11,14 +11,6 @@ public class Transaction {
     private double amount;
     private int customerId;
 
-    public Transaction(TaxType taxType, String invoiceNumber, LocalDateTime timestamp, double amount, int customerId) {
-        this.taxType = taxType;
-        this.invoiceNumber = invoiceNumber;
-        this.timestamp = timestamp;
-        this.amount = amount;
-        this.customerId = customerId;
-    }
-
     public Transaction() {
     }
 
