@@ -10,12 +10,13 @@ public class SimpleRecordParser implements RecordParser {
         if (trx.getTaxType() == taxType && trx.getCustomerId() == userId) {
             return trx.getAmount() * 0.1;
         }
+
         return 0;
     }
 
     @Override
     public double getAmount(Transaction trx, int userId, TaxType taxType) {
-        if(trx.getTaxType() == taxType && trx.getCustomerId() == userId) {
+        if (trx.getTaxType() == taxType && trx.getCustomerId() == userId) {
             return trx.getAmount();
         }
         return 0;
