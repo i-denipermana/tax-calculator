@@ -100,11 +100,6 @@
                     <version>3.4.2</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.jreleaser</groupId>
-                    <artifactId>jreleaser-maven-plugin</artifactId>
-                    <version>0.10.0</version>
-                </plugin>
-                <plugin>
                     <groupId>org.graalvm.buildtools</groupId>
                     <artifactId>native-maven-plugin</artifactId>
                     <version>0.9.14</version>
@@ -347,34 +342,9 @@
                     <plugin>
                         <groupId>org.jreleaser</groupId>
                         <artifactId>jreleaser-maven-plugin</artifactId>
+                        <version>1.2.0</version>
                         <configuration>
                             <jreleaser>
-                                <project>
-                                    <name>${appName}</name>
-                                    <versionPattern>SEMVER</versionPattern>
-                                    <description>Tax Calculator CLI</description>
-                                    <longDescription>
-                                        Tax Calculator CLI
-                                    </longDescription>
-                                    <license>Apache-2.0</license>
-                                    <inceptionYear>2022</inceptionYear>
-                                    <copyright>2022 Deni Permana</copyright>
-                                    <description>Tax Calculator CLI</description>
-                                    <snapshot>
-                                        <label>{{ projectVersionNumber }}-early-access</label>
-                                    </snapshot>
-                                </project>
-                                <packagers>
-                                    <!--                                    <brew>-->
-                                    <!--                                        <active>RELEASE</active>-->
-                                    <!--                                        <continueOnError>true</continueOnError>-->
-                                    <!--                                        <multiPlatform>true</multiPlatform>-->
-                                    <!--                                    </brew>-->
-                                    <!--<sdkman>-->
-                                    <!--    <active>RELEASE</active>-->
-                                    <!--    <continueOnError>true</continueOnError>-->
-                                    <!--</sdkman>-->
-                                </packagers>
                                 <release>
                                     <github>
                                         <tagName>{{projectVersion}}</tagName>
