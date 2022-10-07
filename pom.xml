@@ -5,11 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.app</groupId>
-    <artifactId>tax-cli</artifactId>
+    <artifactId>tcalc</artifactId>
     <version>0.0.2</version>
 
     <name>tax-calculator</name>
     <properties>
+        <appName>tcalc</appName>
+        <executable-suffix/>
         <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -70,6 +72,21 @@
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>0.8.8</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>3.4.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.jreleaser</groupId>
+                    <artifactId>jreleaser-maven-plugin</artifactId>
+                    <version>1.2.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.graalvm.buildtools</groupId>
+                    <artifactId>native-maven-plugin</artifactId>
+                    <version>0.9.14</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -134,6 +151,170 @@
                     </programs>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <attach>false</attach>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <finalName>${appName}-${project.version}-${os.detected.classifier}</finalName>
+                    <outputDirectory>${app.distribution.directory}</outputDirectory>
+                    <workDirectory>${project.build.directory}/assembly/work</workDirectory>
+                    <skipAssembly>true</skipAssembly>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-distribution</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>native</id>
+            <activation>
+                <property>
+                    <name>native</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.graalvm.buildtools</groupId>
+                        <artifactId>native-maven-plugin</artifactId>
+                        <extensions>true</extensions>
+                        <executions>
+                            <execution>
+                                <id>build-native</id>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                            <execution>
+                                <id>release-native</id>
+                                <goals>
+                                    <goal>release</goal>
+                                </goals>
+                                <phase>release</phase>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <imageName>${appName}-${project.version}</imageName>
+                            <mainClass>${mainClass}</mainClass>
+                            <buildArgs>
+                                <buildArg>--allow-incomplete-classpath</buildArg>
+                                <buildArg>--no-fallback</buildArg>
+                                <buildArg>-H:+ReportExceptionStackTraces</buildArg>
+                                <buildArg>--verbose</buildArg>
+                            </buildArgs>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>dist</id>
+            <activation>
+                <property>
+                    <name>dist</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <configuration combine.self="append">
+                            <skipAssembly>false</skipAssembly>
+                            <descriptors>
+                                <descriptor>src/main/assembly/assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jreleaser</groupId>
+                        <artifactId>jreleaser-maven-plugin</artifactId>
+                        <configuration>
+                            <jreleaser>
+                                <project>
+                                    <snapshot>
+                                        <label>{{ projectVersionNumber }}-early-access</label>
+                                    </snapshot>
+                                </project>
+                                <packagers>
+<!--                                    <brew>-->
+<!--                                        <active>RELEASE</active>-->
+<!--                                        <continueOnError>true</continueOnError>-->
+<!--                                        <multiPlatform>true</multiPlatform>-->
+<!--                                    </brew>-->
+                                    <!--<sdkman>-->
+                                    <!--    <active>RELEASE</active>-->
+                                    <!--    <continueOnError>true</continueOnError>-->
+                                    <!--</sdkman>-->
+                                </packagers>
+                                <release>
+                                    <github>
+                                        <owner>i-denipermana</owner>
+                                        <overwrite>true</overwrite>
+                                    </github>
+                                </release>
+                                <distributions>
+                                    <jwtc>
+                                        <name>${appName}</name>
+                                        <type>NATIVE_IMAGE</type>
+                                        <artifacts>
+                                            <artifact>
+                                                <path>{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-linux-x86_64.tar.gz</path>
+                                                <transform>artifacts/{{distributionName}}-{{projectEffectiveVersion}}-linux-x86_64.tar.gz</transform>
+                                                <platform>linux-x86_64</platform>
+                                            </artifact>
+                                            <artifact>
+                                                <path>{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-linux-x86_64.zip</path>
+                                                <transform>artifacts/{{distributionName}}-{{projectEffectiveVersion}}-linux-x86_64.zip</transform>
+                                                <platform>linux-x86_64</platform>
+                                            </artifact>
+                                            <artifact>
+                                                <path>{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-windows-x86_64.zip</path>
+                                                <transform>artifacts/{{distributionName}}-{{projectEffectiveVersion}}-windows-x86_64.zip</transform>
+                                                <platform>windows-x86_64</platform>
+                                            </artifact>
+                                            <artifact>
+                                                <path>{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-osx-x86_64.zip</path>
+                                                <transform>artifacts/{{distributionName}}-{{projectEffectiveVersion}}-osx-x86_64.zip</transform>
+                                                <platform>osx-x86_64</platform>
+                                            </artifact>
+                                        </artifacts>
+                                    </jwtc>
+                                </distributions>
+                            </jreleaser>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>dist-windows</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+            <properties>
+                <executable-suffix>.exe</executable-suffix>
+            </properties>
+        </profile>
+    </profiles>
 </project>
