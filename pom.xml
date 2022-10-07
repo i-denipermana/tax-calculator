@@ -102,7 +102,7 @@
                 <plugin>
                     <groupId>org.jreleaser</groupId>
                     <artifactId>jreleaser-maven-plugin</artifactId>
-                    <version>0.10.0</version>
+                    <version>1.2.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.graalvm.buildtools</groupId>
@@ -350,6 +350,20 @@
                         <configuration>
                             <jreleaser>
                                 <project>
+                                    <name>${appName}</name>
+                                    <versionPattern>SEMVER</versionPattern>
+                                    <description>Tax Calculator CLI</description>
+                                    <longDescription>
+                                        Tax Calculator CLI
+                                    </longDescription>
+                                    <authors>
+                                        <author>Deni Permana</author>
+                                    </authors>
+                                    <maintainers>
+                                        <maintainer>i-denipermana</maintainer>
+                                    </maintainers>
+                                    <license>Apache-2.0</license>
+                                    <inceptionYear>2022</inceptionYear>
                                     <copyright>2022 Deni Permana</copyright>
                                     <description>Tax Calculator CLI</description>
                                     <snapshot>
