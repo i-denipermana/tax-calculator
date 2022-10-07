@@ -17,7 +17,6 @@ public class FileHelper {
     }
 
     public boolean isFiletypeAllowed(String filename) {
-        System.out.println(filename);
         Optional<String> fileExtension = Optional.of(filename)
                 .filter(f -> f.contains("."))
                 .map(f -> f.toLowerCase().substring(filename.indexOf(".") + 1));
@@ -25,7 +24,6 @@ public class FileHelper {
             String ext = fileExtension.get();
             return Arrays.stream(allowedExt).anyMatch(e -> e.equalsIgnoreCase(ext));
         } else {
-            System.out.println("Invalid file or file extension");
             return false;
         }
     }

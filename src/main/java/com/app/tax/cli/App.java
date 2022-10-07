@@ -10,18 +10,25 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-@Command(name = "calc")
+@Command(name = "tcalc", mixinStandardHelpOptions = true, parameterListHeading = "")
 public class App implements Runnable {
 
-    @Parameters(paramLabel = "<taxType> <userId> <filename>")
-    private String[] parameters;
-    private FileHelper fileHelper;
+    @Parameters(index = "0", description = "Tax Type (GST, PAYROLL, COMPANY_TAX, LAND_TAX, CAPITOL_GAIN)")
+    private String taxType;
 
+    @Parameters(index = "1", description = "Your customer id")
+    private int customerId;
+
+    @Parameters(index = "2", description = "Path to filename")
+    private String file;
+
+    private FileHelper fileHelper;
     public App(FileHelper fileHelper) {
         this.fileHelper = fileHelper;
     }
@@ -34,12 +41,8 @@ public class App implements Runnable {
     }
 
 
-    public boolean validateArguments(String[] args) {
-        if (args.length < 3) {
-            return false;
-        }
-        if (isArgIndexValid(args, 2)) {
-            String filename = args[2];
+    public boolean validateArguments(String filename) {
+        if (filename != null) {
             if (!fileHelper.isFiletypeAllowed(filename)) {
                 System.out.println("Filetype is not allowed");
                 return false;
@@ -56,30 +59,18 @@ public class App implements Runnable {
 
     @Override
     public void run() {
-        if (parameters == null) {
-            showHelp();
-            System.exit(1);
-        }
-        if (validateArguments(parameters)) {
-            String taxType = parameters[0];
-            String userId = parameters[1];
-            String file = parameters[2];
+        if (validateArguments(file)) {
             try {
                 TaxCalculatorService ts = new TaxCalculatorService(new SimpleRecordParser());
-
-                double result = ts.getTotalAmount(TaxType.valueOf(taxType.toUpperCase()), Integer.parseInt(userId), file);
-                System.out.printf("For tax %s, customer %s has declared $%s \n", parameters[0], parameters[1], result);
+                double result = ts.getTotalAmount(TaxType.valueOf(taxType.toUpperCase()), customerId, file);
+                System.out.printf("For tax %s, customer %s has declared $%s \n", taxType, customerId, result);
             } catch (IOException e) {
                 System.out.printf(
                         "Error occurred while try to parse and calculate the tax for tax %s, customer %s \n",
-                        taxType, userId);
+                        taxType, customerId);
                 System.exit(1);
             }
         }
 
-    }
-
-    private void showHelp() {
-        CommandLine.usage(this, System.out);
     }
 }

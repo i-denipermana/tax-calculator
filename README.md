@@ -15,8 +15,13 @@ if you want to install globally on macOS or linux you can move the binary to `/u
 ```bash
 $ mv ./tcalc-${VERSION}-${OS}-x86_64/bin/tcalc /usr/local/bin
 $ tcalc
-Usage: tcalc [<taxType> <userId> <filename>...]
-      [<taxType> <userId> <filename>...]
+Usage: tcalc [-hV] <taxType> <customerId> <file>
+      <taxType>      Tax Type (GST, PAYROLL, COMPANY_TAX, LAND_TAX,
+                       CAPITOL_GAIN)
+      <customerId>   Your customer id
+      <file>         Path to filename
+  -h, --help         Show this help message and exit.
+  -V, --version      Print version information and exit.
 
 ```
 ### Build native
@@ -37,7 +42,12 @@ $ ./mvnw clean install
 ## Usage
 ```shell
 $ tcalc
-Usage: tcalc [<taxType> <userId> <filename>...]
-[<taxType> <userId> <filename>...]
+Usage: calc [-hV] <taxType> <customerId> <file>
+      <taxType>      Tax Type (GST, PAYROLL, COMPANY_TAX, LAND_TAX,
+                       CAPITOL_GAIN)
+      <customerId>   Your customer id
+      <file>         Path to filename
+  -h, --help         Show this help message and exit.
+  -V, --version      Print version information and exit.
 ```
 ## Contributing
