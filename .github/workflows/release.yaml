@@ -76,17 +76,14 @@ jobs:
     #          - os: macos-latest
     #            gu-binary: gu
     runs-on: ${{ matrix.os }}
-
     steps:
       - name: 'Download all build artifacts'
         uses: actions/download-artifact@v2
-
       - name: 'Read HEAD ref'
         id: head
         uses: juliangruber/read-file-action@v1
         with:
           path: artifacts/HEAD
-
       - name: 'Check out repository'
         uses: actions/checkout@v2
         with:
@@ -125,8 +122,57 @@ jobs:
           path: |
             target/*.zip
             target/*.tar.gz
+  release:
+    needs: [ build ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Download all build artifacts'
+        uses: actions/download-artifact@v2
+
+      - name: 'Read HEAD ref'
+        id: head
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: artifacts/HEAD
+
+      - name: 'Read versions'
+        id: version
+        run: |
+          RELEASE_VERSION=`cat artifacts/RELEASE_VERSION`
+          PLAIN_VERSION=`cat artifacts/PLAIN_VERSION`
+          NEXT_VERSION=`cat artifacts/NEXT_VERSION`
+          echo "RELEASE_VERSION = $RELEASE_VERSION"
+          echo "PLAIN_VERSION   = $PLAIN_VERSION"
+          echo "NEXT_VERSION    = $NEXT_VERSION"
+          echo "::set-output name=RELEASE_VERSION::$RELEASE_VERSION"
+          echo "::set-output name=PLAIN_VERSION::$PLAIN_VERSION"
+          echo "::set-output name=NEXT_VERSION::$NEXT_VERSION"
+      - name: 'Check out repository'
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.head.outputs.content }}
+          fetch-depth: 0
+      - name: 'Set up Java'
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '11'
+      - name: 'Cache Maven packages'
+        uses: actions/cache@v2.1.7
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
       - name: 'Release with JReleaser'
         env:
           JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JRELEASER_BRANCH: main
         run: ./mvnw -e -B --file pom.xml -Prelease -DartifactsDir=artifacts jreleaser:full-release
+      - name: JReleaser output
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: jreleaser-logs
+          path: |
+            target/jreleaser/trace.log
+            target/jreleaser/output.properties
