@@ -32,7 +32,10 @@ public class TaxCalculatorService {
                 transactionAmount += this.parser.getAmount(trx, userId, taxType);
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.printf(
+                    "Error occurred while try to parse and calculate the tax for tax %s, customer %s \n",
+                    taxType, userId);
+            System.exit(1);
         }
         return transactionAmount + taxAmount;
     }

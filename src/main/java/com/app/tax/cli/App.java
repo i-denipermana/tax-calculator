@@ -29,6 +29,7 @@ public class App implements Runnable {
     private String file;
 
     private FileHelper fileHelper;
+
     public App(FileHelper fileHelper) {
         this.fileHelper = fileHelper;
     }
@@ -52,19 +53,15 @@ public class App implements Runnable {
         }
         return true;
     }
+
     @Override
     public void run() {
         if (validateArguments(file)) {
-            try {
-                TaxCalculatorService ts = new TaxCalculatorService(new SimpleRecordParser());
-                double result = ts.getTotalAmount(TaxType.valueOf(taxType.toUpperCase()), customerId, file);
-                System.out.printf("For tax %s, customer %s has declared $%s \n", taxType, customerId, result);
-            } catch (IOException e) {
-                System.out.printf(
-                        "Error occurred while try to parse and calculate the tax for tax %s, customer %s \n",
-                        taxType, customerId);
-                System.exit(1);
-            }
+
+            TaxCalculatorService ts = new TaxCalculatorService(new SimpleRecordParser());
+            double result = ts.getTotalAmount(TaxType.valueOf(taxType.toUpperCase()), customerId, file);
+            System.out.printf("For tax %s, customer %s has declared $%s \n", taxType, customerId, result);
+
         }
 
     }
