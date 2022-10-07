@@ -10,9 +10,9 @@
     </formats>
     <files>
         <file>
-            <source>${project.build.directory}/${project.artifactId}-${project.version}${executable-suffix}</source>
+            <source>${project.build.directory}/${project.artifactId}${executable-suffix}</source>
             <outputDirectory>./bin</outputDirectory>
-            <destName>tcalc${executable-suffix}</destName>
+            <destName>${project.artifactId}${executable-suffix}</destName>
             <fileMode>0755</fileMode>
         </file>
     </files>
