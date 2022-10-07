@@ -20,6 +20,7 @@
         <artifactsDir>target</artifactsDir>
         <sonar.organization>i-denipermana</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+
     </properties>
 
     <dependencies>
@@ -29,9 +30,16 @@
             <version>4.6.3</version>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.9.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>5.9.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -88,6 +96,12 @@
                     <artifactId>native-maven-plugin</artifactId>
                     <version>0.9.14</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.8.3</version>
+                </plugin>
+
             </plugins>
         </pluginManagement>
         <plugins>
@@ -113,6 +127,34 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <argLine>${surefireArgLine}</argLine>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.9.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.1.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <argLine>
+                        --illegal-access=permit
+                    </argLine>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.graalvm.nativeimage</groupId>
@@ -172,6 +214,55 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.7</version>
+                <executions>
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <destFile>${project.build.directory}/coverage-reports/jacoco.exec</destFile>
+                            <propertyName>surefireArgLine</propertyName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>default-report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>${project.build.directory}/coverage-reports/jacoco.exec</dataFile>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>default-check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>${project.build.directory}/coverage-reports/jacoco.exec</dataFile>
+                            <rules>
+                                <rule>
+                                    <element>BUNDLE</element>
+                                    <limits>
+                                        <limit>
+                                            <counter>COMPLEXITY</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>0.60</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <profiles>
@@ -187,6 +278,7 @@
                     <plugin>
                         <groupId>org.graalvm.buildtools</groupId>
                         <artifactId>native-maven-plugin</artifactId>
+                        <version>0.9.14</version>
                         <extensions>true</extensions>
                         <executions>
                             <execution>
@@ -230,6 +322,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-assembly-plugin</artifactId>
+                        <version>3.4.2</version>
                         <configuration combine.self="append">
                             <skipAssembly>false</skipAssembly>
                             <descriptors>
@@ -255,11 +348,11 @@
                                     </snapshot>
                                 </project>
                                 <packagers>
-<!--                                    <brew>-->
-<!--                                        <active>RELEASE</active>-->
-<!--                                        <continueOnError>true</continueOnError>-->
-<!--                                        <multiPlatform>true</multiPlatform>-->
-<!--                                    </brew>-->
+                                    <!--                                    <brew>-->
+                                    <!--                                        <active>RELEASE</active>-->
+                                    <!--                                        <continueOnError>true</continueOnError>-->
+                                    <!--                                        <multiPlatform>true</multiPlatform>-->
+                                    <!--                                    </brew>-->
                                     <!--<sdkman>-->
                                     <!--    <active>RELEASE</active>-->
                                     <!--    <continueOnError>true</continueOnError>-->
@@ -277,23 +370,39 @@
                                         <type>NATIVE_IMAGE</type>
                                         <artifacts>
                                             <artifact>
-                                                <path>{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-linux-x86_64.tar.gz</path>
-                                                <transform>artifacts/{{distributionName}}-{{projectEffectiveVersion}}-linux-x86_64.tar.gz</transform>
+                                                <path>
+                                                    {{artifactsDir}}/{{distributionName}}-{{projectVersion}}-linux-x86_64.tar.gz
+                                                </path>
+                                                <transform>
+                                                    artifacts/{{distributionName}}-{{projectEffectiveVersion}}-linux-x86_64.tar.gz
+                                                </transform>
                                                 <platform>linux-x86_64</platform>
                                             </artifact>
                                             <artifact>
-                                                <path>{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-linux-x86_64.zip</path>
-                                                <transform>artifacts/{{distributionName}}-{{projectEffectiveVersion}}-linux-x86_64.zip</transform>
+                                                <path>
+                                                    {{artifactsDir}}/{{distributionName}}-{{projectVersion}}-linux-x86_64.zip
+                                                </path>
+                                                <transform>
+                                                    artifacts/{{distributionName}}-{{projectEffectiveVersion}}-linux-x86_64.zip
+                                                </transform>
                                                 <platform>linux-x86_64</platform>
                                             </artifact>
                                             <artifact>
-                                                <path>{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-windows-x86_64.zip</path>
-                                                <transform>artifacts/{{distributionName}}-{{projectEffectiveVersion}}-windows-x86_64.zip</transform>
+                                                <path>
+                                                    {{artifactsDir}}/{{distributionName}}-{{projectVersion}}-windows-x86_64.zip
+                                                </path>
+                                                <transform>
+                                                    artifacts/{{distributionName}}-{{projectEffectiveVersion}}-windows-x86_64.zip
+                                                </transform>
                                                 <platform>windows-x86_64</platform>
                                             </artifact>
                                             <artifact>
-                                                <path>{{artifactsDir}}/{{distributionName}}-{{projectVersion}}-osx-x86_64.zip</path>
-                                                <transform>artifacts/{{distributionName}}-{{projectEffectiveVersion}}-osx-x86_64.zip</transform>
+                                                <path>
+                                                    {{artifactsDir}}/{{distributionName}}-{{projectVersion}}-osx-x86_64.zip
+                                                </path>
+                                                <transform>
+                                                    artifacts/{{distributionName}}-{{projectEffectiveVersion}}-osx-x86_64.zip
+                                                </transform>
                                                 <platform>osx-x86_64</platform>
                                             </artifact>
                                         </artifacts>

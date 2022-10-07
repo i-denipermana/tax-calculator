@@ -1,9 +1,9 @@
 package com.app.tax.cli;
 
-
 import com.app.tax.cli.utils.FileHelper;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -17,11 +17,13 @@ public class AppTest {
     private App app;
     private FileHelper fileHelper;
 
-    @Before
-    public void setUp() throws Exception {
+
+    @BeforeEach
+    void setUp() {
         fileHelper = Mockito.mock(FileHelper.class);
         app = new App(fileHelper);
     }
+
 
     @Test
     public void testValidateArgumentsLengthShouldReturnFalseIfLengthIsLessThan3() {

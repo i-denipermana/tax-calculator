@@ -5,7 +5,6 @@ import com.app.tax.cli.domain.enums.TaxType;
 import com.app.tax.cli.services.parser.RecordParser;
 import com.app.tax.cli.services.parser.SimpleRecordParser;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,6 +14,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TaxCalculatorServiceTest {
+
     @Test
     public void testShouldReturnZeroIfNotInParameter() throws IOException {
         RecordParser parser = new SimpleRecordParser();
