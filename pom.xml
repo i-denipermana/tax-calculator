@@ -6,7 +6,7 @@
 
     <groupId>com.app</groupId>
     <artifactId>tax-cli</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
 
     <name>tax-calculator</name>
     <properties>
