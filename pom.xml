@@ -17,7 +17,7 @@
 
     <groupId>com.app</groupId>
     <artifactId>tcalc</artifactId>
-    <version>0.0.9</version>
+    <version>0.0.10</version>
 
     <name>tax-calculator</name>
     <properties>
