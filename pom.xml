@@ -102,7 +102,7 @@
                 <plugin>
                     <groupId>org.jreleaser</groupId>
                     <artifactId>jreleaser-maven-plugin</artifactId>
-                    <version>1.2.0</version>
+                    <version>0.10.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.graalvm.buildtools</groupId>
@@ -169,7 +169,7 @@
                 <version>21.2.0</version>
                 <configuration>
                     <mainClass>${mainClass}</mainClass>
-                    <imageName>calc</imageName>
+                    <imageName>${appName}</imageName>
                     <buildArgs>
                         --no-fallback
                         --report-unsupported-elements-at-runtime
@@ -195,7 +195,7 @@
                     <programs>
                         <program>
                             <mainClass>com.app.tax.cli.App</mainClass>
-                            <id>calc</id>
+                            <id>${appName}</id>
                         </program>
                     </programs>
                 </configuration>
