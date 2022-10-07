@@ -1,6 +1,7 @@
 package com.app.tax.cli;
 
 import com.app.tax.cli.config.AppConfig;
+import com.app.tax.cli.domain.entities.Transaction;
 import com.app.tax.cli.domain.enums.TaxType;
 import com.app.tax.cli.services.TaxCalculatorService;
 import com.app.tax.cli.services.parser.SimpleRecordParser;
@@ -9,9 +10,11 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Command(name = "tcalc", mixinStandardHelpOptions = true, parameterListHeading = "")
 public class App implements Runnable {
@@ -45,9 +48,7 @@ public class App implements Runnable {
                 return false;
             }
             Path path = Paths.get(filename);
-             if(!fileHelper.exists(path)) {
-                 return false;
-             }
+            return fileHelper.exists(path);
         }
         return true;
     }
@@ -65,6 +66,6 @@ public class App implements Runnable {
                 System.exit(1);
             }
         }
-    }
 
+    }
 }

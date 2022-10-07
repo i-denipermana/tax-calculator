@@ -62,6 +62,12 @@
             <version>4.8.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.ginsberg</groupId>
+            <artifactId>junit5-system-exit</artifactId>
+            <version>1.1.2</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 
@@ -104,6 +110,7 @@
                     <groupId>org.graalvm.buildtools</groupId>
                     <artifactId>native-maven-plugin</artifactId>
                     <version>0.9.14</version>
+
                 </plugin>
             </plugins>
         </pluginManagement>
