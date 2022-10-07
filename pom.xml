@@ -303,6 +303,13 @@
                         <version>1.2.0</version>
                         <configuration>
                             <jreleaser>
+                                <project>
+                                    <copyright>2022 Deni Permana</copyright>
+                                    <description>Tax Calculator CLI</description>
+                                    <longDescription>
+                                        Tax Calculator CLI
+                                    </longDescription>
+                                </project>
                                 <release>
                                     <github>
                                         <tagName>{{projectVersion}}</tagName>
