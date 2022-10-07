@@ -18,17 +18,24 @@ public class TaxCalculatorService {
         this.parser = parser;
     }
 
-    public double getTotalAmount(TaxType taxType, int userId, String file) throws IOException {
+    public double getTotalAmount(TaxType taxType, int userId, String file) {
         String line;
         double taxAmount = 0.0;
         double transactionAmount = 0.0;
 
-        FileReader fileReader = new FileReader(file);
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
-        while ((line = bufferedReader.readLine()) != null) {
-            Transaction trx = buildTransaction(line);
-            taxAmount += this.parser.getRecordTaxAmount(trx, userId, taxType);
-            transactionAmount += this.parser.getAmount(trx, userId, taxType);
+        try {
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            while ((line = bufferedReader.readLine()) != null) {
+                Transaction trx = buildTransaction(line);
+                taxAmount += this.parser.getRecordTaxAmount(trx, userId, taxType);
+                transactionAmount += this.parser.getAmount(trx, userId, taxType);
+            }
+        } catch (IOException e) {
+            System.err.printf(
+                    "Error occurred while try to parse and calculate the tax for tax %s, customer %s %n",
+                    taxType, userId);
+            System.exit(1);
         }
         return transactionAmount + taxAmount;
     }

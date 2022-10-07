@@ -1,7 +1,6 @@
 package com.app.tax.cli;
 
 import com.app.tax.cli.config.AppConfig;
-import com.app.tax.cli.domain.entities.Transaction;
 import com.app.tax.cli.domain.enums.TaxType;
 import com.app.tax.cli.services.TaxCalculatorService;
 import com.app.tax.cli.services.parser.SimpleRecordParser;
@@ -10,11 +9,8 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 
 @Command(name = "tcalc", mixinStandardHelpOptions = true, parameterListHeading = "")
 public class App implements Runnable {
@@ -29,6 +25,7 @@ public class App implements Runnable {
     private String file;
 
     private FileHelper fileHelper;
+
     public App(FileHelper fileHelper) {
         this.fileHelper = fileHelper;
     }
@@ -52,19 +49,15 @@ public class App implements Runnable {
         }
         return true;
     }
+
     @Override
     public void run() {
         if (validateArguments(file)) {
-            try {
-                TaxCalculatorService ts = new TaxCalculatorService(new SimpleRecordParser());
-                double result = ts.getTotalAmount(TaxType.valueOf(taxType.toUpperCase()), customerId, file);
-                System.out.printf("For tax %s, customer %s has declared $%s \n", taxType, customerId, result);
-            } catch (IOException e) {
-                System.out.printf(
-                        "Error occurred while try to parse and calculate the tax for tax %s, customer %s \n",
-                        taxType, customerId);
-                System.exit(1);
-            }
+
+            TaxCalculatorService ts = new TaxCalculatorService(new SimpleRecordParser());
+            double result = ts.getTotalAmount(TaxType.valueOf(taxType.toUpperCase()), customerId, file);
+            System.out.printf("For tax %s, customer %s has declared $%s \n", taxType, customerId, result);
+
         }
 
     }
