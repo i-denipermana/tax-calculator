@@ -102,7 +102,7 @@
                 <plugin>
                     <groupId>org.jreleaser</groupId>
                     <artifactId>jreleaser-maven-plugin</artifactId>
-                    <version>1.2.0</version>
+                    <version>0.10.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.graalvm.buildtools</groupId>
