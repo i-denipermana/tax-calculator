@@ -369,8 +369,21 @@
                                 </packagers>
                                 <release>
                                     <github>
-                                        <owner>i-denipermana</owner>
+                                        <tagName>{{projectVersion}}</tagName>
+                                        <releaseName>{{projectVersion}}</releaseName>
                                         <overwrite>true</overwrite>
+                                        <changelog>
+                                            <formatted>ALWAYS</formatted>
+                                            <format>- {{commitShortHash}} {{commitTitle}}</format>
+                                            <preset>conventional-commits</preset>
+                                            <contributors>
+                                                <format>- {{contributorName}}</format>
+                                            </contributors>
+                                            <hide>
+                                                <categories>merge</categories>
+                                                <contributors>GitHub,dependabot</contributors>
+                                            </hide>
+                                        </changelog>
                                     </github>
                                 </release>
                                 <distributions>
