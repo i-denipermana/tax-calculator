@@ -46,4 +46,10 @@ public class FileHelperTest {
         FileHelper fh = new FileHelper();
         assertFalse(fh.exists(Path.of("test.csv")));
     }
+
+    @Test
+    public void testIfFilenameIsDirectoryShouldReturnFalse() {
+        FileHelper fh = new FileHelper();
+        assertFalse(fh.exists(Path.of("/")));
+    }
 }

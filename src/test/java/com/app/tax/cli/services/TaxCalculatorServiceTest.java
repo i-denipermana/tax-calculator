@@ -4,6 +4,8 @@ package com.app.tax.cli.services;
 import com.app.tax.cli.domain.enums.TaxType;
 import com.app.tax.cli.services.parser.RecordParser;
 import com.app.tax.cli.services.parser.SimpleRecordParser;
+import com.ginsberg.junit.exit.ExpectSystemExit;
+import com.ginsberg.junit.exit.ExpectSystemExitWithStatus;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedWriter;
@@ -63,16 +65,30 @@ class TaxCalculatorServiceTest {
         assertEquals(0, res);
     }
 
+    @Test
+    @ExpectSystemExitWithStatus(1)
+    public void testGetTotalAmountShouldHaveSystemExitIfThrowException() throws IOException {
+        RecordParser parser = new SimpleRecordParser();
+        TaxCalculatorService ts = new TaxCalculatorService(parser);
+        String content = "123, 2021/04/customer1-12212, 2021-04-29T13:15:54, 10.00, GST \n" +
+                "123, 2021/04/customer1-12212, 2021-04-30T13:15:54, 20.00, GST";
+        File f = createFile(content, false);
+        ts.getTotalAmount(TaxType.GST, 1234, f.getName());
+    }
 
-    private File createFile(String content) throws IOException {
+
+    private File createFile(String content, boolean readable) throws IOException {
         File tempFile = File.createTempFile("test", ".csv", new File("."));
-
         BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
         writer.write(content);
         writer.close();
-
+        tempFile.setReadable(readable);
         tempFile.deleteOnExit();
         return tempFile;
+    }
+
+    private File createFile(String content) throws IOException {
+        return createFile(content, true);
     }
 
 
