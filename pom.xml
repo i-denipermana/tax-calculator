@@ -23,6 +23,7 @@
     <properties>
         <appName>tcalc</appName>
         <executable-suffix/>
+        <artifactsDir>target</artifactsDir>
         <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -379,7 +380,7 @@
                                     </github>
                                 </release>
                                 <distributions>
-                                    <jwtc>
+                                    <tcalc>
                                         <name>${appName}</name>
                                         <type>NATIVE_IMAGE</type>
                                         <artifacts>
@@ -420,7 +421,7 @@
                                                 <platform>osx-x86_64</platform>
                                             </artifact>
                                         </artifacts>
-                                    </jwtc>
+                                    </tcalc>
                                 </distributions>
                             </jreleaser>
                         </configuration>
