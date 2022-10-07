@@ -33,5 +33,10 @@ After installation now we can run the packager
 $ ./mvnw clean install
 ```
 ## Usage
+```shell
+$ tcalc
+Usage: tcalc [<taxType> <userId> <filename>...]
+[<taxType> <userId> <filename>...]
 
+```
 ## 
