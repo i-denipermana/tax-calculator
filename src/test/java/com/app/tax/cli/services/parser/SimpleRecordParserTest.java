@@ -5,6 +5,7 @@ import com.app.tax.cli.domain.entities.Transaction;
 import com.app.tax.cli.domain.enums.TaxType;
 import org.junit.jupiter.api.Test;
 
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SimpleRecordParserTest {
