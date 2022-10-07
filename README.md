@@ -39,6 +39,26 @@ After installation now we can run the packager
 ```shell
 $ ./mvnw clean install
 ```
+
+### Build with assembler plugin
+you can build this package with appassembler maven plugin with command below.
+```shell
+$ ./mvnw clean package appassembler:assemble
+```
+After the build finish you can run it 
+```shell
+$ ./target/appassembler/bin/tcalc
+
+Missing required parameters: '<taxType>', '<customerId>', '<file>'
+Usage: tcalc [-hV] <taxType> <customerId> <file>
+      <taxType>      Tax Type (GST, PAYROLL, COMPANY_TAX, LAND_TAX,
+                       CAPITOL_GAIN)
+      <customerId>   Your customer id
+      <file>         Path to filename
+  -h, --help         Show this help message and exit.
+  -V, --version      Print version information and exit.
+
+```
 ## Usage
 ```shell
 $ tcalc

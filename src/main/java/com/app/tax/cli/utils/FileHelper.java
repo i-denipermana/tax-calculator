@@ -30,7 +30,7 @@ public class FileHelper {
 
     public boolean exists(Path filepath) {
         if (!Files.exists(filepath) || Files.isDirectory(filepath)) {
-            System.out.printf("The file %s not exists ", filepath.getFileName());
+            System.err.printf("The file %s not exists ", filepath.getFileName());
             return false;
         }
         return true;

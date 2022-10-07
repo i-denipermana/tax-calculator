@@ -41,11 +41,13 @@ public class App implements Runnable {
     public boolean validateArguments(String filename) {
         if (filename != null) {
             if (!fileHelper.isFiletypeAllowed(filename)) {
-                System.out.println("Filetype is not allowed");
+                System.err.println("Filetype is not allowed");
                 return false;
             }
             Path path = Paths.get(filename);
-            return fileHelper.exists(path);
+            if(!fileHelper.exists(path)) {
+                return false;
+            }
         }
         return true;
     }
@@ -53,11 +55,9 @@ public class App implements Runnable {
     @Override
     public void run() {
         if (validateArguments(file)) {
-
             TaxCalculatorService ts = new TaxCalculatorService(new SimpleRecordParser());
             double result = ts.getTotalAmount(TaxType.valueOf(taxType.toUpperCase()), customerId, file);
             System.out.printf("For tax %s, customer %s has declared $%s \n", taxType, customerId, result);
-
         }
 
     }
