@@ -39,6 +39,5 @@ $ ./mvnw clean install
 $ tcalc
 Usage: tcalc [<taxType> <userId> <filename>...]
 [<taxType> <userId> <filename>...]
-
 ```
-## 
+## Contributing
