@@ -125,3 +125,8 @@ jobs:
           path: |
             target/*.zip
             target/*.tar.gz
+      - name: 'Release with JReleaser'
+        env:
+          JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JRELEASER_BRANCH: main
+        run: ./mvnw -e -B --file pom.xml -Prelease -DartifactsDir=artifacts jreleaser:full-release
